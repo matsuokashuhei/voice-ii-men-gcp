@@ -1,6 +1,8 @@
 FROM node:16-buster
 
-ENV PATH /app/node_modules/.bin:$PATH
+RUN npm i -g prettier eslint
+
+# ENV PATH /app/node_modules/.bin:$PATH
 ENV workdir=/app
 
 RUN useradd -m nodejs && \

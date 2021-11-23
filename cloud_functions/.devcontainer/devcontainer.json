@@ -4,6 +4,11 @@
   },
   "runArgs": ["--env-file", ".devcontainer/.env.devcontainer"],
   "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"],
+  // "initializeCommand": "docker run -ti -v $HOME/.config/gcloud:/root/.config/gcloud google/cloud-sdk:latest gcloud auth application-default login",
+  // "waitFor": "initializeCommand",
+  // "mounts": [
+  //   "source=${localEnv:HOME}/.config/gcloud,target=/home/nodejs/.config/gcloud,type=bind,consistency=cached"
+  // ],
   "settings": {
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
