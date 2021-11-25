@@ -7,7 +7,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket = "voice-ii-men-dev-332908-tfstate"
+    bucket = "voice-ii-men-333213-tfstate"
     prefix = "env/dev"
   }
 }

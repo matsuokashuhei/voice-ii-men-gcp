@@ -20,7 +20,8 @@ provider "registry.terraform.io/hashicorp/archive" {
 }
 
 provider "registry.terraform.io/hashicorp/google" {
-  version = "4.1.0"
+  version     = "4.1.0"
+  constraints = "4.1.0"
   hashes = [
     "h1:fYNiRYljNutXw/KMr5QbJgIUrBvlgGJ1oq1gv64c40Q=",
     "zh:3477415ef4ef02d7c065a08fb24b7011ddd77f76b2a011db25e0b73c767acaae",
