@@ -6,6 +6,7 @@ locals {
   services = [
     "cloudbuild.googleapis.com",
     "cloudfunctions.googleapis.com",
+    "firestore.googleapis.com",
     "texttospeech.googleapis.com",
   ]
 }

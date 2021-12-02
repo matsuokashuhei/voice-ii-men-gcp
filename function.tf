@@ -1,15 +1,20 @@
 locals {
   functions = {
-    extract_article = {
-      id          = "extract-article"
-      entry_point = "extractArticle"
+    create_article = {
+      id          = "create-article"
+      entry_point = "createArticle"
+      version     = "20211201-1"
+    }
+    get_articles = {
+      id          = "get-articles"
+      entry_point = "getArticles"
       version     = "20211125-1"
     }
-    convert_text_to_speech = {
-      id          = "convert-text-to-speech"
-      entry_point = "convertTextToSpeech"
-      version     = "20211125-1"
-    }
+    # convert_text_to_speech = {
+    #   id          = "convert-text-to-speech"
+    #   entry_point = "convertTextToSpeech"
+    #   version     = "20211125-1"
+    # }
   }
 }
 
