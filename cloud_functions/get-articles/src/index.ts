@@ -2,6 +2,7 @@ import type {HttpFunction} from '@google-cloud/functions-framework/build/src/fun
 const Firestore = require('@google-cloud/firestore');
 
 type ArticleType = {
+  id: string;
   title: string;
   byline: string;
   dir: string;
@@ -13,7 +14,7 @@ type ArticleType = {
   url: string;
 };
 
-const fetchArticles = async () => {
+const fetchArticles = async (): Promise<ArticleType[]> => {
   const articles: ArticleType[] = [];
   const db = new Firestore({projectId: 'voice-ii-men-333213'});
   const snapshot = await db.collection('articles').get();

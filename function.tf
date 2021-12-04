@@ -1,9 +1,14 @@
 locals {
   functions = {
+    parse_article = {
+      id          = "parse-article"
+      entry_point = "parseArticle"
+      version     = "20211204-02"
+    }
     create_article = {
       id          = "create-article"
       entry_point = "createArticle"
-      version     = "20211201-1"
+      version     = "20211204-1"
     }
     get_articles = {
       id          = "get-articles"
