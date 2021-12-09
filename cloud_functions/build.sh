@@ -23,15 +23,17 @@ npm run clean
 npm run compile
 cd $current
 
-# # cd convert-text-to-speech
-# # npm run clean
-# # npm run compile
-# # cd $current
+echo add-audio
+cd add-audio
+npm run clean
+npm run compile
+cd $current
 
-# # cd extract-article
-# # npm run clean
-# # npm run compile
-# # cd $current
+echo get-article
+cd get-article
+npm run clean
+npm run compile
+cd $current
 
 echo get-articles
 cd get-articles

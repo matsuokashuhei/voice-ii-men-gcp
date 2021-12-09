@@ -3,23 +3,39 @@ locals {
     parse_article = {
       id          = "parse-article"
       entry_point = "parseArticle"
-      version     = "20211204-02"
+      version     = "20211206-1"
+      environment_variables = {
+      }
     }
     create_article = {
       id          = "create-article"
       entry_point = "createArticle"
-      version     = "20211204-1"
+      version     = "20211206-1"
+      environment_variables = {
+      }
+    }
+    add_audio = {
+      id          = "add-audio"
+      entry_point = "addAudio"
+      version     = "20211206-1"
+      environment_variables = {
+        STORAGE_BUCKET = "voice-ii-men-333213-audio"
+      }
+    }
+    get_article = {
+      id          = "get-article"
+      entry_point = "getArticle"
+      version     = "20211206-1"
+      environment_variables = {
+      }
     }
     get_articles = {
       id          = "get-articles"
       entry_point = "getArticles"
-      version     = "20211125-1"
+      version     = "20211206-1"
+      environment_variables = {
+      }
     }
-    # convert_text_to_speech = {
-    #   id          = "convert-text-to-speech"
-    #   entry_point = "convertTextToSpeech"
-    #   version     = "20211125-1"
-    # }
   }
 }
 
@@ -54,7 +70,9 @@ resource "google_cloudfunctions_function" "voice_ii_men" {
   source_archive_bucket = google_storage_bucket.functions.name
   source_archive_object = google_storage_bucket_object.voice_ii_men[each.key].name
   trigger_http          = true
+  timeout               = 120
   entry_point           = each.value.entry_point
+  environment_variables = each.value.environment_variables
   depends_on = [
     google_storage_bucket.functions,
   ]

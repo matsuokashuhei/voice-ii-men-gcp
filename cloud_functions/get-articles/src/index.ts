@@ -1,22 +1,18 @@
-import type {HttpFunction} from '@google-cloud/functions-framework/build/src/functions';
+import type {HttpFunction} from '@google-cloud/functions-framework';
 const Firestore = require('@google-cloud/firestore');
 
 type ArticleType = {
   id: string;
   title: string;
-  byline: string;
-  dir: string;
-  content: string;
-  textContent: string;
-  length: number;
-  excerpt: string;
+  texts: string;
   siteName: string;
   url: string;
+  audio?: string;
 };
 
 const fetchArticles = async (): Promise<ArticleType[]> => {
   const articles: ArticleType[] = [];
-  const db = new Firestore({projectId: 'voice-ii-men-333213'});
+  const db = new Firestore({projectId: process.env.GCP_PROJECT});
   const snapshot = await db.collection('articles').get();
   snapshot.forEach(doc => {
     const {id} = doc;
@@ -25,15 +21,15 @@ const fetchArticles = async (): Promise<ArticleType[]> => {
   return articles;
 };
 
-export const getArticles: HttpFunction = async (req, res) => {
+export const getArticles: HttpFunction = async (request, response) => {
   try {
     const articles = await fetchArticles();
-    res.status(200).send({articles});
+    response.status(200).send({articles});
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).send({error: error.message});
+      response.status(500).send({error: error.message});
     } else {
-      res.status(500);
+      response.status(500);
     }
   }
 };

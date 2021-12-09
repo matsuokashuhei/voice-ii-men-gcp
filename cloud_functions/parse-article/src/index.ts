@@ -9,6 +9,27 @@ const fetchArticleFromURL = async (url: string) => {
   return new Readability(document).parse();
 };
 
+const splitFirstTextAndLastText = (text: string) => {
+  if (text.length < 2000) {
+    return {firstText: text, lastText: ''};
+  }
+  const lastIndex = text.slice(0, 2000).lastIndexOf('。') + 1;
+  const firstText = text.slice(0, lastIndex);
+  const lastText = text.replace(firstText, '');
+  return {firstText, lastText};
+};
+
+const splitTextBy2000 = (text: string) => {
+  const texts: string[] = [];
+  let result = splitFirstTextAndLastText(text);
+  texts.push(result.firstText);
+  while (result.lastText !== '') {
+    result = splitFirstTextAndLastText(result.lastText);
+    texts.push(result.firstText);
+  }
+  return texts.map(text => text.replace(/^\n/, '').replace(/\n$/, ''));
+};
+
 export const parseArticle: HttpFunction = async (request, response) => {
   try {
     console.log('query', request.query);
@@ -21,7 +42,11 @@ export const parseArticle: HttpFunction = async (request, response) => {
       if (!article) {
         throw new Error('Failed fetchArticleFromURL');
       }
-      response.status(200).send({article: Object.assign(article, {url})});
+      const sentences = splitTextBy2000(article.textContent).map(text => {
+        return {text};
+      });
+      const {title, siteName} = article;
+      response.status(200).send({article: {url, title, siteName, sentences}});
     } else {
       throw new Error('url in querty is not string type');
     }

@@ -5,12 +5,7 @@ const crypto = require('crypto');
 type ArticleType = {
   url: string;
   title: string;
-  byline: string;
-  dir: string;
-  content: string;
-  textContent: string;
-  length: number;
-  excerpt: string;
+  sentences: {text: string; audioURL?: string}[];
   siteName: string;
 };
 
@@ -22,7 +17,7 @@ const saveArticle = async (
   article: ArticleType
 ): Promise<string | ArticleType> => {
   const id = generateId(article.url);
-  const db = new Firestore({projectId: 'voice-ii-men-333213'});
+  const db = new Firestore({projectId: process.env.GCP_PROJECT});
   const docRef = db.collection('articles').doc(id);
   await docRef.set(article);
   return Object.assign({id}, article);
